@@ -1,35 +1,18 @@
-"""
-ECE196 Face Recognition Project
-Author: Will Chen
+import numpy as np
+import cv2
 
-Prerequisite: You need to install OpenCV before running this code
-The code here is an example of what you can write to print out 'Hello World!'
-Now modify this code to process a local image and do the following:
-1. Read geisel.jpg
-2. Convert color to gray scale
-3. Resize to half of its original dimensions
-4. Draw a box at the center the image with size 100x100
-5. Save image with the name, "geisel-bw-rectangle.jpg" to the local directory
-All the above steps should be in one function called process_image()
-"""
+# Load an color Image in grayscale
+img = cv2.imread('geisel.jpg',0)
 
-# TODO: Import OpenCV
+#from PIL import image
+#from resizeimage import resizeimage
 
+#fd_img = open('geisel.jpg')
+#img = image.open(fd_img)
 
-# TODO: Edit this function
-def process_image():
-    return
-
-# Just prints 'Hello World! to screen.
-def hello_world():
-    print('Hello World!')
-    return
-
-# TODO: Call process_image function.
-def main():
-    hello_world()
-    return
+height,width = img.shape
+img2 = cv2.resize(img, fx=0.5, fy=0.5)
+img3 = cv2.resize(img, [width/2, height/2])
 
 
-if(__name__ == '__main__'):
-    main()
+img4 = cv2.rectangle(img, color[white], 
