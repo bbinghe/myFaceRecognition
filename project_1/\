@@ -14,11 +14,10 @@ height,width = img.shape
 dsize = (width/2, height/2)
 img3 = cv2.resize(img, dsize)
 
-center1 = dsize[0]/2
-center2 = dsize[1]/2
-print("Original Size: {} x {} :: Boxed : {}, {}".format(dsize[0], dsize[1], center1, center2))
-cv2.rectangle(img3,(center1-50, center2+50), (center1+50, center2-50), (255, 255, 255))
-cv2.imshow('test2', img3)
-cv2.waitKey(0)
 
-#cv2.imwrite("newgeisel.jpg", img4)
+center1 = width/2
+center2 = height/2
+img4 = cv2.rectangle(img3,(center1-50, center2+50), (center1+50, center2-50), (255, 255, 255))
+
+
+cv2.imwrite("newgeisel.jpg", img4)
