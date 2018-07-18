@@ -16,11 +16,16 @@ from picamera import PiCamera
 import time
 import cv2
 
+
+face_cascade = cv2.CascadeClassifier('/home/pi/opencv-2.4.13.4/data/haarcascades/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('/home/pi/opencv-2.4.13.4/data/haarcascades/haarcascade_eye.xml')
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (640, 480)
+camera.resolution = (120, 160)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+rawCapture = PiRGBArray(camera, size=(120, 160))
+width, height = camera.resolution
 
 # allow the camera to warmup
 time.sleep(0.1)
@@ -30,10 +35,20 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
+    
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    for (x, y, w, h) in faces:
+        cv2.rectangle(gray, (x, y), (x+w, y+h), (255, 255, 255), 1)
+        roi_gray = gray[y:y+h, x:x+w]
+        roi_color = gray[y:y+h, x:x+w]
+
 
     # show the frame
-    cv2.imshow("Frame", image)
+    cv2.imsow("Frame", gray)
     key = cv2.waitKey(1) & 0xFF
+        
 
     # clear the stream in preparation for the next frame
     rawCapture.truncate(0)
@@ -41,3 +56,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
+

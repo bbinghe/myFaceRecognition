@@ -32,7 +32,7 @@ def _main(args):
     print("Begin fitting...")
 
     # TODO: Create an SVM with a cache_size=2048
-    svm = #________
+    svm = SVC.fit(x_train, y_train[)
 
     # TODO: Fit the data
     # Hint: svm.fit

@@ -64,11 +64,12 @@ def predict(recognizer,test_img):
         return test_img
 
     # TODO: Resize image to (100,100)
-    face = # _______
+    face = cv2.resize(img, dsize(100, 100))
+    
 
     # TODO: Predict the image using our face recognizer 
     # Hint: use recognizer.predict and face
-    label, confidence = # ________
+    label, confidence = recognizer.predict(gray[y:y+w, x:x+h])
     
 
     #get name of respective label returned by face recognizer
